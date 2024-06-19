@@ -1,0 +1,31 @@
+{
+    "name": "funda-electron-webview",
+    "applicationName": "Funda-Electron-Webview",
+    "version": "0.0.1",
+    "description": "Simulate a webview. It is convenient for the web page to open multiple tabs.",
+    "main": "main.js",
+    "author": "UIUX Lab",
+    "license": "MIT",
+    "scripts": {
+        "start": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "make:win": "electron-forge make --arch=\"ia32\" --platform=win32"
+    },
+    "repository": {
+        "type": "git",
+        "url": "funda-electron-webview"
+    },
+    "keywords": [
+        "electron",
+        "webview",
+        "multiple-browser"
+    ],
+    "devDependencies": {
+        "@electron-forge/cli": "^7.4.0",
+        "@electron-forge/maker-deb": "^7.4.0",
+        "@electron-forge/maker-dmg": "^7.4.0",
+        "@electron-forge/maker-squirrel": "^7.4.0",
+        "electron": "^31.0.1"
+    }
+}
