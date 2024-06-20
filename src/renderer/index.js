@@ -1,5 +1,3 @@
-const { ipcRenderer } = require('electron');
-
 
 const calculateLayoutSize = () => {
     const webviews = document.querySelectorAll('.webview');
@@ -10,7 +8,7 @@ const calculateLayoutSize = () => {
 
     webviews.forEach((webview, i) => {
         webview.style.width = windowWidth + "px";
-        webview.style.height = windowHeight + "px";
+        webview.style.height = windowHeight - document.querySelector('.tabs-nav').offsetHeight - 5 + "px";
     });
 
 };
@@ -23,7 +21,7 @@ const initWebviewTitles = () => {
 
         webview.addEventListener('dom-ready', function () {
             const _title = webview.getTitle();
-            tabsNav[i].innerHTML = _title;
+            tabsNav[i].firstChild.innerHTML = _title;
         });
 
     });
@@ -54,7 +52,7 @@ const addTab = (url) => {
             <webview autosize="on" src="${url}" class="webview" allowpopups></webview>
         </li>
     `);
-    document.querySelector('.tabs-nav').insertAdjacentHTML('beforeend', `<li class="tab">New Tab</li>`);
+    document.querySelector('.tabs-nav').insertAdjacentHTML('beforeend', `<li class="tab"><span>New Tab</span><small tabindex="-1" class="tab-close"><svg width="12px" height="12px" viewBox="0 0 16 16"><path fill="inherit" d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z" fill-rule="evenodd"></path></svg></small></li>`);
     calculateLayoutSize();
 
     // format Ids & title
@@ -71,18 +69,46 @@ const addTab = (url) => {
     openTab(`tab-${tabsNav.length - 1}`);
 
 
-    // click events
-    document.querySelector('.tabs-nav').addEventListener('click', (event) => {
-        const target = event.target;
-        if (target.className == 'tab') {
-            for (let i = 0; i < tabsNav.length; i++) {
-                if (target == tabsNav[i]) {
-                    openTab(target.id);
-                    break;
-                }
-            }
-        }
+    // switch events
+    const switchFun = (event) => {
+        event.preventDefault();
+        const targetId = event.currentTarget.id;
+        openTab(targetId);
+    };
+
+    document.querySelectorAll('.tabs-nav .tab').forEach((el) => {
+        el.removeEventListener('click', switchFun);
+        el.addEventListener('click', switchFun);
     });
+
+
+
+    // close events
+    const closeFun = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const root = event.currentTarget.parentElement;
+        const targetId = root.id;
+        const _id = targetId.replace('-btn', '');
+        const nextTab = root.nextSibling;
+        if (document.getElementById(_id)) document.getElementById(_id).remove();
+        if (document.getElementById(_id + '-btn')) document.getElementById(_id + '-btn').remove();
+
+        // active last tab
+        if (nextTab !== null && root.classList.contains('active')) {
+            const lastTabId = nextTab.id;
+            openTab(lastTabId);
+        }
+
+
+    };
+
+    document.querySelectorAll('.tab-close').forEach((el) => {
+        el.removeEventListener('click', closeFun);
+        el.addEventListener('click', closeFun);
+    });
+
+
 
     // initialize tab title
     initWebviewTitles();
@@ -96,9 +122,15 @@ const addTab = (url) => {
  * Custom Tabs
  * //////////////////////////////////////////////////////
  */
-ipcRenderer.on('OPEN_URL', (event, url) => {
-    addTab(url);
-});
+window.myapi.openUrlHandle(
+    'OPEN_URL',
+    (event, data) =>
+        function (event, data) {
+            addTab(data);
+        },
+    event
+);
+
 
 window.addEventListener('DOMContentLoaded', () => {
     calculateLayoutSize();

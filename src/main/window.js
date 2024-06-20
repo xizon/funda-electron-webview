@@ -24,8 +24,12 @@ const createWindow = (width, height) => {
         webPreferences: {
             webviewTag: true, // @https://www.electronjs.org/docs/api/webview-tag,
             preload: path.join(__dirname, "../../preload.js"), // required for some function
+            /*
+            !!! With these two options, you can use ipcRenderer directly in renderer.js:
+            
             contextIsolation: false,
             nodeIntegration: true,
+            */
         },
     });
 

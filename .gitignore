@@ -83,3 +83,6 @@ typings/
 
 # Webstorm Project
 .idea/
+
+# package
+package

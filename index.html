@@ -16,6 +16,33 @@
             margin: 0;
             padding: 0;
         }
+        .tabs-nav__wrapper {
+            position: relative;
+            text-align: center;
+            width: auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .tabs-nav__wrapper ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            max-width: 100%;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+        }
+        .tabs-nav__wrapper ul::-webkit-scrollbar {
+            height: 6px;
+        }
+        .tabs-nav__wrapper ul::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .tabs-nav__wrapper ul > li {
+            white-space: nowrap;
+        }
 
         ul, li {
             margin: 0;
@@ -23,6 +50,11 @@
             list-style: none;
         }
 
+        .tab-close {
+            cursor: pointer;
+            opacity: .6;
+        }
+ 
         .tabs-nav {
             padding: 0;
             list-style: none;
@@ -53,12 +85,15 @@
             cursor: pointer;
             color: #3a5ea7;
             padding: 5px 7px;
+            font-size: 10px;
+        }
+
+        .tabs-nav li > span {
+            display: inline-block;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             max-width: 150px;
-            font-size: 10px;
-            margin-bottom: -3px;
         }
 
         .tabs-nav li:first-child {
@@ -87,9 +122,11 @@
      HTTP/3 may cause a "handshake failed" that loadURL incorrectly force HTTPS. 
      It may cause the page to be blank and refreshing will have no effect.
      -->
-     <ul class="tabs-nav">
-        <li class="tab active" id="tab-0-btn">First tab</li>
-     </ul>
+     <div class="tabs-nav__wrapper">
+        <ul class="tabs-nav">
+            <li class="tab active" id="tab-0-btn"><span>New Tab</span></li>
+        </ul>
+     </div>
 
     <ul class="tabs-content-container">
         <li class="tabs-content active" id="tab-0">

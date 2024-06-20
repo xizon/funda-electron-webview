@@ -2,14 +2,17 @@
 
 const { contextBridge, ipcRenderer } = require('electron');
 
-/*
+
 // Usage: renderer.js => window.myapi.hideMainWin();
 // you need delete "contextIsolation: false" and "nodeIntegration: true" in "src/main/window.js"
 
 contextBridge.exposeInMainWorld('myapi', {
     hideMainWin: () => ipcRenderer.send('HIDE_MAIN_WIN'),
-    showMainWin: () => ipcRenderer.send('SHOW_MAIN_WIN')
+    showMainWin: () => ipcRenderer.send('SHOW_MAIN_WIN'),
+
+    // renderer process receive requests from the main process
+    openUrlHandle: (channel, callable, event, data) => ipcRenderer.on(channel, callable(event, data))
 });
-*/
+
 
 
