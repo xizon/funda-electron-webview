@@ -1,7 +1,7 @@
 # Funda Electron Webview
 
 
-Simulate a webview. It is convenient for the web page to open multiple tabs.
+An electron template for simulating a browser that will get you started. It is convenient for the web page to open multiple tabs.
 
 
 ## File Structures

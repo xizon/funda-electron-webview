@@ -2,7 +2,7 @@
     "name": "funda-electron-webview",
     "applicationName": "Funda-Electron-Webview",
     "version": "0.0.1",
-    "description": "Simulate a webview. It is convenient for the web page to open multiple tabs.",
+    "description": "An electron template for simulating a browser that will get you started.",
     "main": "main.js",
     "author": "UIUX Lab",
     "license": "MIT",
@@ -19,7 +19,9 @@
     "keywords": [
         "electron",
         "webview",
-        "multiple-browser"
+        "webview-app",
+        "electron-template",
+        "electron-tabs"
     ],
     "devDependencies": {
         "@electron-forge/cli": "^7.4.0",
