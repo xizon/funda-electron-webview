@@ -2,14 +2,6 @@
 
 
 Simulate a webview. It is convenient for the web page to open multiple tabs.
- 
-## Packages
-
-
-[Mac](package/Funda-Electron-Webview.dmg) 
-
-[Windows](package/Funda-Electron-Webview (installer).exe)
-
 
 
 ## File Structures
